@@ -11,6 +11,7 @@ function style(){
 
 function watch(){
     browserSync.init({
+        port: 8000,
         server: {
             baseDir: './src'
         }

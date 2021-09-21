@@ -1,0 +1,12 @@
+%textbox{
+    appearance: none;
+    padding: 1rem;
+    border-radius: border-radius('m');
+    outline: none;
+    font-family: $font-family;
+    @include border();
+}
+
+input[type='text'], textarea{
+    @extend %textbox;
+}

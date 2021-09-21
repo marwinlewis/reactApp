@@ -1,0 +1,23 @@
+%button{
+    appearance: none;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: border-radius('m');
+    cursor: pointer;
+    @include background-color('pink');
+    font-size: font-size('m');
+    font-family: $font-family;
+    border: border-width() solid color('pink');
+
+    &:hover{
+        @include background-hover-color('pink', 'low');
+    }
+
+    &:focus{
+        box-shadow: 0 0 px2rem(4px) px2rem(1px) color('pink') inset;
+    }
+}
+
+button, input[type='submit']{
+    @extend %button;
+}
