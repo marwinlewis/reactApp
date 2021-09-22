@@ -1,0 +1,93 @@
+@use 'sass:math';
+
+@function px2rem($p){
+    @return math.div(strip-unit($p), 16) + rem;
+}
+
+@function strip-unit($v){
+    @return math.div($v, $v * 0 + 1);
+}
+
+@function color($key){
+    @if(map-has-key($color-palette, $key)){
+        @return map-get($color-palette, $key);
+    }@else{
+        @error "Color not found!";
+    }
+}
+
+@mixin background-color($key){
+    $color: '';
+    @if(map-has-key($color-palette, $key)){
+        $color: map-get($color-palette, $key);
+    }@else{
+        @error 'Color not found!';
+    }
+    background-color: $color;
+    @if(lightness($color) > 60%){
+        color: color('black');
+    }@else{
+        color: color('white');
+    }
+}
+
+@function border-radius($size){
+    @if($size=='s'){
+        @return px2rem(2px);
+    }@else if($size=='m'){
+        @return px2rem(5px);
+    }
+}
+
+@function border-width(){
+    @return px2rem(1px);
+}
+
+@function font-size($size){    
+    @if($size=='s'){
+        @return px2rem(12px);
+    }@else if($size=='m'){
+        @return px2rem(14px);
+    }@else if($size=='l'){
+        @return px2rem(16px);
+    }
+}
+
+@function darken-range($key){
+    @if(map-has-key($darken-range, $key)){
+        @return map-get($darken-range, $key);
+    }@else{
+        @error 'Key not found!';
+    }    
+}
+
+@mixin background-hover-color($colorKey, $darkenKey){
+    $color: '';
+    $darken: darken-range($darkenKey);
+    @if(map-has-key($color-palette, $colorKey)){
+        $color: map-get($color-palette, $colorKey);
+    }@else{
+        @error 'Color not found!';
+    }
+    
+    $color: darken($color, $darken);
+    background-color: $color;
+    @if(lightness($color) > 60%){
+        color: color('black');
+    }@else{
+        color: color('white');
+    }
+}
+
+@mixin border(){
+    border: border-width() solid color('grey');
+
+    &:hover{        
+        border: border-width() solid darken(color('grey'), darken-range('high'));
+    }
+
+    &:focus{
+        border: border-width() solid color('pink');
+        box-shadow: 0 0 0 px2rem(1px) color('pink') inset;
+    }
+}

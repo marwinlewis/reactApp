@@ -1,7 +1,10 @@
 /*Base*/
+@import "00-base/variable";
+@import "00-base/design-pattern";
 @import "00-base/typography";
 
 /*Atoms*/
 @import "01-atoms/buttons";
+@import "01-atoms/textbox";
 
 /*Molecules*/
